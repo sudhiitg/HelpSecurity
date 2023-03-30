@@ -151,3 +151,124 @@ app.get("/", function (req, res) {
       }
     }
   });
+  //admin portal
+app.get("/admin",function(req,res){
+    if(ok1==true){
+    res.render("admin.ejs");
+    ok1=false;
+    }
+  })
+  app.post("/admin",function(req,res){
+    var usrname=req.body.admin;
+    var pasword=req.body.password;
+    if(usrname!="" && pasword!=""){
+    findOneListingByadmin(usrname,pasword);
+    setTimeout(getresult,1000);
+    // console.log(result1);
+    function getresult(){
+    if(result1=="success"){
+      // console.log("success");
+      admincheck=true;
+      res.redirect("/adminhome");
+    }
+    else{
+      // console.log("fail");
+      ok1=true;
+      res.redirect("/admin");
+    }
+    }
+  }
+  else{
+    res.redirect("/admin");
+  }
+  })
+  app.get("/adminhome",function(req,res){
+    if(admincheck==true){
+    findListingByadmin(adminhostel);
+    setTimeout(getadminpage,2000);
+    function getadminpage(){
+    var context;
+    res.render("adminhome.ejs",{context:[book]});
+    }
+    }
+    else{
+      res.redirect("/admin");
+    }
+  });
+  
+  app.post("/adminhome",function(req,res){
+    if(req.body.submit=="reload"){
+    res.redirect("/");
+    admincheck=false;
+    }
+  })
+  app.post("/issuetime",function(req,res){
+    var id=req.body.tag;
+    for(var i=0;i<book.length;i++){
+      if(book[i].id==id){
+        if(book[i].issuedTime==null){
+          updatetime();
+          updateQuantity(hostel,equip,"sub",id);
+          // res.redirect("/adminhome")
+          alert("Successfully issued")
+        }else{
+          alert("you have issued already")
+  
+        }
+      }
+    }
+    function updatetime(){
+    var datetime=currentdatetime();
+    updatelistingbyissuetime(id,datetime);
+    }
+    res.redirect("/adminhome");
+   })
+  
+   app.post("/returntime",function(req,res){
+    var id=req.body.tag;
+    var returned=false;
+    for(var i=0;i<book.length;i++){
+      if(book[i].id==id){
+        if(book[i].returnTime==null && book[i].issuedTime!=null){
+          returned=true;
+          updatetime();
+          if(returned){
+            updateQuantity(hostel,equip,"add");
+          }
+          // res.redirect("/adminhome");
+        }
+      }
+    }
+    
+     if(returned==false){
+      alert("Issue first");
+    }
+    function updatetime(){
+      var datetime=currentdatetime();
+      updatelistingbyreturntime(id,datetime);
+    }
+    setTimeout(redirectting,1000);
+    function redirectting(){
+    res.redirect("/adminhome");
+    }
+  
+   })
+   app.post("/delete",function(req,res){
+    var id=req.body.tag;
+    var deleted=false;
+    for(var i=0;i<book.length;i++){
+      if(book[i].id==id){
+        if(book[i].issuedTime==null){
+        deleted=true;
+        deleteitemfromlist(id);
+        }
+      }
+    }
+    if(deleted==false){
+      alert("First Return");
+    }
+    setTimeout(del,2000);
+    function del(){
+      res.redirect("/adminhome");
+    }
+   })
