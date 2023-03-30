@@ -272,3 +272,122 @@ app.get("/admin",function(req,res){
       res.redirect("/adminhome");
     }
    })
+//Finding email using mongodbdatabase
+const findOneListingByEmail = async (email) => {
+	const result = await mongoose.model('user').findOne({ email:email });
+    if(result!=null){
+	  hostel=result.hostel;
+    }
+}
+const findOneListingByadmin=async function(username1,pwd){
+	const result =await mongoose.model('hostel').findOne({ username:username1});
+    if(pwd!=result.pwd){
+     result1="fail";
+    }
+    else{
+      adminhostel=result.name;
+      result1="success";
+    }
+}
+const findListingByadmin=async function(adminhostel){
+	const result =await mongoose.model('admin').find({hostel:adminhostel});
+  book=[]
+  for(var i=0;i<result.length;i++){
+    if(result[i].issuedTime!=null && result[i].returnTime!=null){}
+    else{
+      book.push(result[i]);
+    }
+  }
+  // console.log(result);
+}
+const updateoneListingByadmin= function(emailid,hostel,equip){
+  var adminmodel= mongoose.model('admin');
+  var admin=new adminmodel({email:emailid,hostel:hostel,equipment:equip});
+	admin.save();
+}
+const updatelistingbyissuetime=function(id,time){
+  console.log(id);
+	mongoose.model('admin').updateOne({_id:id},{issuedTime:time},function(err){
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log("Success");
+    }
+  });
+}
+const deleteitemfromlist=function(id){
+	mongoose.model('admin').deleteOne({_id:id},function(err){
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log("Success");
+    }
+  });
+}
+const updatelistingbyreturntime=function(id,time){
+  console.log(id);
+	mongoose.model('admin').updateOne({_id:id},{returnTime:time},function(err){
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log("Success");
+    }
+  });
+}
+const findOneListingByHostel = async (hostel) => {
+	const result = await mongoose.model('hostel').findOne({ name:hostel });
+  // console.log(result);
+  username=result.username;
+  pwd=result.pwd;
+  quantity[0]=result.bat;
+  quantity[1]=result.lawn_tennis;
+  quantity[2]=result.table_tennis;
+  quantity[3]=result.biliyards;
+  quantity[4]=result.carrom;
+  quantity[5]=result.stump;
+  quantity[6]=result.squash;
+  quantity[7]=result.football;
+  quantity[8]=result.basketball;
+  quantity[9]=result.volleyball;
+  for(var i=0;i<quantity.length;i++){
+    if(quantity[i]=="00"){
+      quantity[i]="Not Available";
+    }
+  }
+  // console.log(quantity);
+  return result;
+}
+
+// sending four digit otp to the registered email
+async function sendotp() {
+    // Generate test SMTP service account from ethereal.email
+    // Only needed if you don't have a real mail account for testing
+    let testAccount = await nodemailer.createTestAccount();
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: process.env.useremail, // generated ethereal user
+        pass: process.env.password, // generated ethereal password
+      },
+    });
+    OTP=Math.floor(1000 + Math.random()*9000);
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: process.env.useremail, // sender address
+      to: outlook, // list of receivers
+      subject: "OTP Authentication", // Subject line
+      html:`Your OTP for verification is <span style="font-weight:bold;text-decoration:underline;color:royalblue;"> ${OTP}</span>. Use this OTP to validate your login.<div>  <br>  </div><div style="font-weight:bold">This is system generated mail. Please don't reply to this mail.</div><br><br><div>Regards</div><div style="font-weight:bold">Team SecurityHelp</div>`, // plain text body
+    });
+    // console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    // Preview only available when sending through an Ethereal account
+    // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+  }
