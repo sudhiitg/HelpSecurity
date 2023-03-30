@@ -391,3 +391,184 @@ async function sendotp() {
     // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
   }
+  function currentdatetime(){
+    var currentdate = new Date(); 
+    var datetime = currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + "." 
+    return datetime;
+  }
+  const updateQuantity= async(hostel,equip,param,id)=>{
+    const res=await mongoose.model('hostel').findOne({name:hostel});
+    // console.log(equip);
+    if(equip=="lawn tennis"){
+    // console.log(res.lawn_tennis);
+    var q = res.lawn_tennis;
+    if(param=="add"){
+      var s=parseInt(q, 10)+1;
+      
+    mongoose.model('hostel').updateOne({name:hostel},{lawn_tennis:s},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+    if(q!="0"){
+    var d=parseInt(q, 10)-1;
+    mongoose.model('hostel').updateOne({name:hostel},{lawn_tennis:d},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+    }
+    else{
+     
+       deleteitemfromlist(id);
+       alert("Item is currently not available.")
+    }
+  }
+  }
+  else if(equip=="bat"){
+    console.log(res.bat);
+    var q = res.bat;
+    if(param=="add"){
+      var s=parseInt(q, 10)+1;
+      
+    mongoose.model('hostel').updateOne({name:hostel},{bat:s},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+    if(q!="0"){var d=parseInt(q, 10)-1;
+    mongoose.model('hostel').updateOne({name:hostel},{bat:d},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+     deleteitemfromlist(id);
+     alert("Item is currently not available.")
+  }
+}}
+else if(equip=="table tennis"){
+    console.log(res.table_tennis);
+    var q = res.table_tennis;
+    if(param=="add"){
+      var s=parseInt(q, 10)+1;
+    mongoose.model('hostel').updateOne({name:hostel},{table_tennis:s},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+    if(q!="0"){var d=parseInt(q, 10)-1;
+    mongoose.model('hostel').updateOne({name:hostel},{table_tennis:d},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+     deleteitemfromlist(id);
+     alert("Item is currently not available.")
+  }
+  }}
+  else if(equip=="biliyards"){
+    console.log(res.biliyards);
+    var q = res.biliyards;
+    if(param=="add"){
+      var s=parseInt(q, 10)+1;
+    mongoose.model('hostel').updateOne({name:hostel},{biliyards:s},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+    if(q!="0"){var d=parseInt(q, 10)-1;
+    mongoose.model('hostel').updateOne({name:hostel},{biliyards:d},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+     deleteitemfromlist(id);
+     alert("Item is currently not available.")
+  }
+  }}
+  else if(equip=="carrom"){
+    console.log(res.carrom);
+    var q = res.carrom;
+    if(param=="add"){
+      var s=parseInt(q, 10)+1;
+    mongoose.model('hostel').updateOne({name:hostel},{carrom:s},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+    if(q!="0"){var d=parseInt(q, 10)-1;
+    mongoose.model('hostel').updateOne({name:hostel},{carrom:d},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+     deleteitemfromlist(id);
+     alert("Item is currently not available.")
+  }
+  }}
+  else if(equip=="stump"){
+    console.log(res.stump);
+    var q = res.stump;
+    if(param=="add"){
+      var s=parseInt(q, 10)+1;
+    mongoose.model('hostel').updateOne({name:hostel},{stump:s},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
