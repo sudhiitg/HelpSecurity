@@ -16,6 +16,140 @@ app.set('view engine', 'ejs');
 app.use(bodyparser.urlencoded({extended:true}));
 
 app.use(express.static("public"));
+
+// variables used in student database
+
+var outlook=null;
+var hostel=null;
+var OTP;
+var check=false;
+let ok=false;
+let home=true;
+let logout=false;
+var username="username";
+var pwd="pwd";
+var equipname=['bat','lawn tennis','table tennis','biliyards','carrom','stump','squash','football','basketball','volleyball']
+
+//variables used in admin database
+
+var quantity=[];
+var result1="fail";
+var book=[];
+var ok1=false;
+var adminhostel=null;
+var admincheck=false;
+
+// models used in creating database
+//userdatabase
+
+var userSchema = new mongoose.Schema({
+  name:{
+    type:String,
+    required:true,
+  },
+  email:{
+    type:String,
+    required:true,
+  },
+  hostel:{
+    type:String,
+    required:true,
+  }
+});
+mongoose.model('user',userSchema);
+//hosteldatabase
+var hostelSchema = new mongoose.Schema({
+  name:{
+    type:String,
+    required:true,
+  },
+  username:{
+    type:String,
+    required:true,
+  },
+  pwd:{
+    type:String,
+    required:true,
+  },
+  bat:{
+    type:String,
+    required:true,
+  },
+  lawn_tennis:{
+    type:String,
+    required:true,
+  },
+  table_tennis:{
+    type:String,
+    required:true,
+  },
+  biliyards:{
+    type:String,
+    required:true,
+  },
+  carrom:{
+    type:String,
+    required:true,
+  },
+  stump:{
+    type:String,
+    required:true,
+  },
+  squash:{
+    type:String,
+    required:true,
+  },
+  football:{
+    type:String,
+    required:true,
+  },
+  basketball:{
+    type:String,
+    required:true,
+  },
+  volleyball:{
+    type:String,
+    required:true,
+  },
+
+});
+mongoose.model('hostel',hostelSchema);
+//admindatabase
+var adminSchema = new mongoose.Schema({
+  email:{
+    type:String,
+    required:true,
+  },
+  hostel:{
+    type:String,
+    required:true,
+  },
+  equipment:{
+    type:String,
+    required:true
+  },
+  issuedTime:{
+    type:String,
+    required:false,
+  },
+  returnTime:{
+    type:String,
+    required:false,
+  }
+});
+mongoose.model('admin',adminSchema);
+
+//creating a server
+const PORT = process.env.PORT || 5050;
+//connecting mongodatabase to the server
+const MONGO_URI =
+  process.env.MONGO_URI || process.env.url_of_mongo;
+//Checking mongodbconnection
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log("Successful DB connection"))
+  .catch((err) => console.error("DB connection failed"));
+
 //entering the home route
 
 app.get("/", function (req, res) {
