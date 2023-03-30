@@ -572,3 +572,146 @@ else if(equip=="table tennis"){
       }
     });
   }
+  else{
+    if(q!="0"){var d=parseInt(q, 10)-1;
+    mongoose.model('hostel').updateOne({name:hostel},{stump:d},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+     deleteitemfromlist(id);
+     alert("Item is currently not available.")
+  }
+  }}
+  else if(equip=="squash"){
+    console.log(res.squash);
+    var q = res.squash;
+    if(param=="add"){
+      var s=parseInt(q, 10)+1;
+    mongoose.model('hostel').updateOne({name:hostel},{squash:s},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+    if(q!="0"){var d=parseInt(q, 10)-1;
+    mongoose.model('hostel').updateOne({name:hostel},{squash:d},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+     deleteitemfromlist(id);
+     alert("Item is currently not available.")
+  }
+  }}
+  else if(equip=="football"){
+    console.log(res.football);
+    var q = res.football;
+    if(param=="add"){
+      var s=parseInt(q, 10)+1;
+    mongoose.model('hostel').updateOne({name:hostel},{football:s},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+    if(q!="0"){var d=parseInt(q, 10)-1;
+    mongoose.model('hostel').updateOne({name:hostel},{football:d},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+     deleteitemfromlist(id);
+     alert("Item is currently not available.")
+  }
+  }}
+  else if(equip=="basketball"){
+    console.log(res.basketball);
+    var q = res.basketball;
+    if(param=="add"){
+      var s=parseInt(q, 10)+1;
+    mongoose.model('hostel').updateOne({name:hostel},{basketball:s},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+    if(q!="0"){var d=parseInt(q, 10)-1;
+    mongoose.model('hostel').updateOne({name:hostel},{basketball:d},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+     deleteitemfromlist(id);
+     alert("Item is currently not available.")
+  }
+  }}
+  else if(equip=="volleyball"){
+    console.log(res.volleyball);
+    var q = res.volleyball;
+    if(param=="add"){
+      var s=parseInt(q, 10)+1;
+    mongoose.model('hostel').updateOne({name:hostel},{volleyball:s},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+    if(q!="0"){var d=parseInt(q, 10)-1;
+    mongoose.model('hostel').updateOne({name:hostel},{volleyball:d},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Success");
+      }
+    });
+  }
+  else{
+     deleteitemfromlist(id);
+     alert("Item is currently not available.")
+  }
+  }
+  }}
+
+
+
+app.listen(PORT,function(){
+  console.log("server is running on port:"+ PORT);
+})
